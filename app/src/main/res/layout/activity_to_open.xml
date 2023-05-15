@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ActivityToOpen">
+
+    <TextView
+        android:id="@+id/number1TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="50dp" />
+
+    <TextView
+        android:id="@+id/multiplyTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:layout_toEndOf="@id/number1TextView"
+        android:layout_alignBaseline="@id/number1TextView"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="×" />
+
+    <TextView
+        android:id="@+id/number2TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:layout_toEndOf="@id/multiplyTextView"
+        android:layout_alignBaseline="@id/number1TextView"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="50dp" />
+
+    <EditText
+        android:id="@+id/answerEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="4"
+        android:textSize="24sp"
+        android:layout_below="@id/number1TextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp" />
+
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ответить"
+        android:layout_below="@id/answerEditText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp" />
+
+    <Button
+        android:id="@+id/returnButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Вернуться в меню"
+        android:layout_below="@id/submitButton"
+        android:layout_marginTop="50dp"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:id="@+id/exitButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Выход из приложения"
+        android:layout_below="@id/submitButton"
+        android:layout_marginTop="50dp"
+        android:layout_alignParentEnd="true" />
+
+</RelativeLayout>
