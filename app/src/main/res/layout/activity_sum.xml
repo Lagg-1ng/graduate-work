@@ -4,14 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center">
-
-    <TextView
-        android:id="@+id/problemTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="24sp"
-        android:layout_marginBottom="24dp" />
+    android:gravity="center"
+    android:padding="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,52 +16,50 @@
             android:id="@+id/number1TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:textStyle="bold"
+            tools:text="Number 1" />
 
         <TextView
             android:id="@+id/multiplicationSignTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="24sp"
-            android:text="×"
-            android:layout_marginHorizontal="8dp" />
+            android:layout_marginHorizontal="8dp"
+            android:text="+"
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/number2TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="24sp" />
-
+            android:textSize="24sp"
+            android:textStyle="bold"
+            tools:text="Number 2" />
     </LinearLayout>
-
     <EditText
         android:id="@+id/userAnswerEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="number"
-        android:hint="Введите ответ"
-        android:imeOptions="actionDone"
-        android:gravity="center" />
+        android:hint="Enter your answer"
+        android:textAlignment="center" />
 
     <Button
         android:id="@+id/submitButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Ответить" />
+        android:text="Submit" />
 
     <Button
         android:id="@+id/returnButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Вернуться в меню" />
+        android:text="Return to Menu" />
 
     <Button
         android:id="@+id/exitButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Выход из приложения" />
+        android:text="Exit" />
 
 </LinearLayout>
