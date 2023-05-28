@@ -1,7 +1,9 @@
 package com.example.diplom3
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Button
@@ -13,89 +15,140 @@ import androidx.appcompat.app.AppCompatActivity
 class ActivityToOpen : AppCompatActivity() {
 
     private lateinit var number1TextView: TextView
+    private lateinit var multiplicationSignTextView: TextView
     private lateinit var number2TextView: TextView
-    private lateinit var answerEditText: EditText
+    private lateinit var userAnswerEditText: EditText
     private lateinit var submitButton: Button
     private lateinit var returnButton: Button
     private lateinit var exitButton: Button
+    private lateinit var timer: CountDownTimer
+    private var timeLimit = 45000L
+    private var isAnswerSubmitted = false
 
-    private var correctAnswer: Int = 0
+    private val numberRange1 = 1..10
+    private val numberRange2 = 0..10
 
-    private var timer: CountDownTimer? = null
+    private var correctAnswer = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_to_open)
 
         number1TextView = findViewById(R.id.number1TextView)
+        multiplicationSignTextView = findViewById(R.id.multiplicationSignTextView)
         number2TextView = findViewById(R.id.number2TextView)
-        answerEditText = findViewById(R.id.answerEditText)
+        userAnswerEditText = findViewById(R.id.userAnswerEditText)
         submitButton = findViewById(R.id.submitButton)
         returnButton = findViewById(R.id.returnButton)
         exitButton = findViewById(R.id.exitButton)
 
-        answerEditText.setOnEditorActionListener{ _,actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE){
-                checkAnswer()
-                true
-            } else {
-                false
-            }
-        }
-
-        generateNumbers()
+        generateNewNumbers()
+        setupTimer()
 
         submitButton.setOnClickListener {
             checkAnswer()
         }
 
         returnButton.setOnClickListener {
+            timer.cancel()
             finish()
         }
 
         exitButton.setOnClickListener {
+            timer.cancel()
             finishAffinity()
         }
 
-        startTimer()
+        userAnswerEditText.setOnEditorActionListener { _, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                checkAnswer()
+                true
+            } else {
+                false
+            }
+        }
     }
 
-    private fun generateNumbers() {
-        val number1 = (1..10).random()
-        val number2 = (1..10).random()
+    private fun generateNewNumbers() {
+        val number1 = numberRange1.random()
 
+        val number2 = numberRange2.random()
         correctAnswer = number1 * number2
 
         number1TextView.text = number1.toString()
         number2TextView.text = number2.toString()
-        answerEditText.text.clear()
+        userAnswerEditText.text.clear()
+        isAnswerSubmitted = false
+        submitButton.isEnabled = true
+        userAnswerEditText.isEnabled = true
+        returnButton.isEnabled = true
+        exitButton.isEnabled = true
+    }
+
+    private fun setupTimer() {
+        timer = object : CountDownTimer(timeLimit, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                val secondsRemaining = millisUntilFinished / 1000
+                title = "Осталось времени: $secondsRemaining сек."
+            }
+
+            override fun onFinish() {
+                handleTimeUp()
+            }
+        }.start()
     }
 
     private fun checkAnswer() {
-        val userAnswer = answerEditText.text.toString()
-
-        if (userAnswer.isNotEmpty() && userAnswer.toInt() == correctAnswer) {
-            Toast.makeText(this, "Правильно! Молодец!", Toast.LENGTH_SHORT).show()
-            generateNumbers()
-        } else {
-            Toast.makeText(this, "Неправильно, попробуй еще раз", Toast.LENGTH_SHORT).show()
+        if (!isAnswerSubmitted) {
+            val userAnswer = userAnswerEditText.text.toString().trim()
+            if (userAnswer.isNotEmpty()) {
+                val userNumber = userAnswer.toInt()
+                val isCorrect = userNumber == correctAnswer
+                showResult(isCorrect)
+            }
         }
     }
 
-    private fun startTimer() {
-        timer = object : CountDownTimer(45000, 1000) {
-            override fun onTick(millisUntilFinished: Long) {}
+    private fun showResult(isCorrect: Boolean) {
+        isAnswerSubmitted = true
 
-            override fun onFinish() {
-                Toast.makeText(this@ActivityToOpen, "Время истекло", Toast.LENGTH_SHORT).show()
-                finish()
-            }
+        if (isCorrect) {
+            showToast("Правильно! Молодец!" as String)
+        } else {
+            showToast("Неправильно, попробуй еще раз" as String)
         }
-        timer?.start()
+        submitButton.isEnabled = false
+        userAnswerEditText.isEnabled = false
+        returnButton.isEnabled = true
+        exitButton.isEnabled = true
+
+        generateNewNumbers()
+    }
+
+    private fun handleTimeUp() {
+        isAnswerSubmitted = true
+        showToast("Время вышло!" as String)
+        submitButton.isEnabled = false
+        userAnswerEditText.isEnabled = false
+        returnButton.isEnabled = true
+        exitButton.isEnabled = true
+
+        generateNewNumbers()
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            return true
+        }
+        return super.onKeyDown(keyCode, event)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        timer?.cancel()
+        timer.cancel()
     }
 }

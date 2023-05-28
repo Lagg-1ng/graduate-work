@@ -3,24 +3,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingTop="16dp"
+    android:paddingRight="16dp"
+    android:paddingBottom="16dp"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/buttonFirst"
+    <TextView
+        android:id="@+id/titleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Открыть Быстрое умножение"
-        android:layout_centerInParent="true"
-        android:onClick="openActivityToOpen" />
-
-    <Button
-        android:id="@+id/buttonExit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Выход"
-        android:layout_below="@id/buttonFirst"
+        android:text="Main Activity"
+        android:textSize="24sp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:onClick="exitApp" />
+        android:layout_marginBottom="32dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/quickSumButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Quick Sum"
+        android:layout_below="@id/titleTextView"
+        android:layout_marginBottom="16dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/quickMultiplicationButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Quick Multiplication"
+        android:layout_below="@id/quickSumButton"
+        android:layout_marginBottom="16dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/exitButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Exit"
+        android:layout_below="@id/quickMultiplicationButton" />
 
 </RelativeLayout>

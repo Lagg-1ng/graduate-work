@@ -1,24 +1,33 @@
 package com.example.diplom3
 
+import  com.example.diplom3.ActivityToSum
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.button.MaterialButton
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-    }
 
-    fun openActivityToOpen(view: View) {
-        val intent = Intent(this, ActivityToOpen::class.java)
-        startActivity(intent)
-    }
+        val quickSumButton: MaterialButton = findViewById(R.id.quickSumButton)
+        val quickMultiplicationButton: MaterialButton = findViewById(R.id.quickMultiplicationButton)
+        val exitButton: MaterialButton = findViewById(R.id.exitButton)
 
-    fun exitApp(view: View) {
-        finish()
+        quickSumButton.setOnClickListener {
+            val intent = Intent(this, ActivityToSum::class.java)
+            startActivity(intent)
+        }
+
+        quickMultiplicationButton.setOnClickListener {
+            val intent = Intent(this, ActivityToOpen::class.java)
+            startActivity(intent)
+        }
+
+        exitButton.setOnClickListener {
+            finish()
+        }
     }
 }
